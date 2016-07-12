@@ -1,0 +1,62 @@
+
+Check for line numbers why not populated
+
+
+
+
+
+
+Avoid XML Collisions
+
+Avoid defining schema (XSD) or WSDL components with the same qualified names in the same module. Doing so may result in XML collisions at the module level.
+If, for some reason, you need to define schema or WSDL components with the same qualifies names, then define the schema or WSDL components in separate shared modules.
+
+
+
+
+
+
+
+
+--Instead of passing a large set of data to Call process every time use Job Shared variable. Which increase the performance. DONE
+
+--Instead of JMS Queue Requestor use JMS Queue Sender and Wait for JMS Actives. Boz JMS queue requestor open a new primary thread.
+
+
+
+//ToDo: MultipleTransitionCheck - Need to fix this issue...for groups there will always be multiple transitions converging as done a fix for Checkpoint in transaction for which GroupStart = GroupEnd = GroupName
+
+//Project Complexity and CodeQuality is hardcoded in Metrics widget
+
+REMOVE project complexity and code quality from bw metrics and add it in other widgets
+
+
+
+
+
+
+
+
+Working with Critical Section Groups
+
+Critical Section groups and shared locks can be used to synchronize access to shared variables.
+
+A Critical Section group allows only one process instance to execute the Critical Section group and its contents at a time. 
+Use a Critical Section group to contain the activities that access the shared variables, Set Shared Variable and Get Shared Variable. 
+Once a process instance begins executing a Critical Section group, other concurrently running process instances that are associated with 
+that Critical Section group wait at the start of the group until the currently running process instance exits the Critical Section group. 
+This ensures that the value of the shared variable is not modified while another process instance is accessing it. 
+See Bindings and Palettes Reference > Basic Activities Palette > Critical Section for more information about using Critical Section 
+groups and shared locks.
+
+Best Practices
+Critical section groups cause multiple process instances to wait for one process instance to execute the activities in the group. 
+As a result, there may be performance implications when using these groups. When creating critical section groups, use the following guidelines to
+ avoid potential performance issues:
+Keep the duration of a Critical Section group as short as possible. That is, put only a very few activities in a Critical Section group, and only
+ use activities that execute very quickly.
+Avoid nesting Critical Section groups. If you must use nesting, ensure that Lock shared configuration resources are used in the same order in all
+ process definitions. Deadlocks can occur if you do not specify the Lock resources in the same order in nested Critical Section groups for all 
+ process definitions.
+Do not include any activities that wait for incoming events or have long durations, such as Request/Reply activities, Wait For, Sleep, or other 
+activities that require a long time to execute.

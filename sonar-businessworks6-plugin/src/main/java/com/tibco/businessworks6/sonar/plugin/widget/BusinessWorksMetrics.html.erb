@@ -1,0 +1,445 @@
+<% tibcobw=measure('isbwproject')
+	if tibcobw
+%>
+
+<%
+   processes = @snapshot.measure('processes')
+   globalvariables = @snapshot.measure('globalvariables')
+   bwresources = @snapshot.measure('bwresources')
+   jobsharedvariables = @snapshot.measure('jobsharedvariables')
+   modulesharedvariables = @snapshot.measure('modulesharedvariables')
+   subprocesses = @snapshot.measure('subprocesses')
+   subreference = @snapshot.measure('subreference')
+   subservices = @snapshot.measure('subservices')
+   projectcomplexity = @snapshot.measure('projectcomplexity')
+   codequality =  @snapshot.measure('codequality')
+%>
+
+<style>
+  .cellContainer {
+    width: 20%;
+    float: left;
+  }
+</style>
+
+<div class="widget-row" style="padding-bottom: 30px;">
+	<h3 class="description-widget-project">
+		<img style="width: 24px; height: 24px; margin: 0px 0px 5px 10px;" src="http://pbs.twimg.com/profile_images/467420970685177857/cJbiQ_Zs_normal.png">
+		<span>TIBCO BusinessWorks 6 Metrics</span>
+	</h3>
+</div>
+
+<div class="widget-row">
+
+	<div class="widget-span widget-span-12">
+
+		<div class="widget-row">
+			<div class="cellContainer">
+			<div class="widget-span">
+				<div class="widget-measure-container">
+					<div class="widget-measure widget-measure-main">
+						<span class="widget-label"><%= metric('processes').short_name-%></span>
+						<span class="nowrap">
+							<span class="link-<%= widget.key %>-issues">
+								<%= format_measure(processes, :url => url_for(:controller => 'components', :action => 'index', :id => @project.key)) -%>
+							</span>
+							<%= dashboard_configuration.selected_period? ? format_variation(processes) : trend_icon(processes) -%>
+						</span>
+					</div>													
+				</div>
+				<div style="margin-top:5px;">	
+					<p>
+						<span>
+							<%= metric('services').short_name -%> : <%= format_measure('services') -%> <%= trend_icon(measure('services')) %>
+						</span>
+					</p>
+					<p>
+						<span>
+							<%= metric('eventSources').short_name -%> : <%= format_measure('eventSources') -%> <%= trend_icon(measure('eventSources')) %>
+						</span>
+					</p>				
+					<p>
+						<span>
+							<%= metric('activities').short_name -%> : <%= format_measure('activities') -%> <%= trend_icon(measure('activities')) %>
+						</span>
+					</p>				
+					<p>
+						<span>
+							<%= metric('transitions').short_name -%> : <%= format_measure('transitions') -%> <%= trend_icon(measure('transitions')) %>
+						</span>
+					</p>
+					<p>
+						<span>
+							<%= metric('groups').short_name -%> : <%= format_measure('groups') -%> <%= trend_icon(measure('groups')) %>
+						</span>
+					</p>
+					<p>
+						<span>
+							<%= metric('catchblock').short_name -%> : <%= format_measure('catchblock') -%> <%= trend_icon(measure('catchblock')) %>
+						</span>
+					</p>
+					<p>
+						<span>
+							<%= metric('eventhandler').short_name -%> : <%= format_measure('eventhandler') -%> <%= trend_icon(measure('eventhandler')) %>
+						</span>
+					</p>
+				</div>	
+			</div>
+			</div>
+			
+			<div class="cellContainer">
+			<div class="widget-span">
+				<div class="widget-measure-container">
+					<div class="widget-measure widget-measure-main">
+						<span class="widget-label"><%= metric('subprocesses').short_name -%></span>
+						<span class="nowrap">
+							<span class="link-<%= widget.key %>-issues">
+								<%= format_measure(subprocesses, :url =>	url_for(:controller => 'components', :action => 'index', :id => @project.key)) -%>
+							</span>
+							<%= dashboard_configuration.selected_period? ? format_variation(subprocesses) : trend_icon(subprocesses)	-%>
+						</span>
+					</div>
+				</div>
+				<div style="margin-top:5px;">	
+					<p>
+						<span>
+							<%= metric('subservices').short_name -%> : <%= format_measure('subservices') -%> <%= trend_icon(measure('subservices')) %>
+						</span>
+					</p>
+					<p>
+						<span>
+							<%= metric('subreference').short_name -%> : <%= format_measure('subreference') -%> <%= trend_icon(measure('subreference')) %>
+						</span>
+					</p>				
+				</div>
+				
+			</div>
+			</div>
+			<div class="cellContainer">
+			<div class="widget-span">
+				<div class="widget-measure-container">
+					<div class="widget-measure widget-measure-main">
+						<span class="widget-label"><%= metric('bwresources').short_name-%></span>
+						<span class="nowrap">
+							<span class="link-<%= widget.key %>-issues">
+								<%= format_measure(bwresources, :url => url_for(:controller => 'components', :action => 'index', :id => @project.key)) -%>
+							</span>
+							<%= dashboard_configuration.selected_period? ? format_variation(bwresources) : trend_icon(bwresources) -%>
+						</span>
+					</div>
+				</div>
+				<div style="margin-top:5px;">	
+					<% tibresource=measure('ishttpclient')
+						if tibresource
+					%>
+					<p>
+						<span>
+							<%= metric('HTTPClient').short_name -%> : <%= format_measure('HTTPClient') -%> <%= trend_icon(measure('HTTPClient')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('ishttpconnector')
+						if tibresource
+					%>					
+					<p>
+						<span>
+							<%= metric('HTTPConnector').short_name -%> : <%= format_measure('HTTPConnector') -%> <%= trend_icon(measure('HTTPConnector')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isjdbcconnection')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('JDBCConnection').short_name -%> : <%= format_measure('JDBCConnection') -%> <%= trend_icon(measure('JDBCConnection')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isjmsconnection')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('JMSConnection').short_name -%> : <%= format_measure('JMSConnection') -%> <%= trend_icon(measure('JMSConnection')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isxmlauthentication')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('XMLAuthentication').short_name -%> : <%= format_measure('XMLAuthentication') -%> <%= trend_icon(measure('XMLAuthentication')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('issslserverconfiguration')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('SSLServerConfiguration').short_name -%> : <%= format_measure('SSLServerConfiguration') -%> <%= trend_icon(measure('SSLServerConfiguration')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('issslclientconfiguration')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('SSLClientConfiguration').short_name -%> : <%= format_measure('SSLClientConfiguration') -%> <%= trend_icon(measure('SSLClientConfiguration')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('issmtpresource')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('SMTPResource').short_name -%> : <%= format_measure('SMTPResource') -%> <%= trend_icon(measure('SMTPResource')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isdataformat')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('DataFormat').short_name -%> : <%= format_measure('DataFormat') -%> <%= trend_icon(measure('DataFormat')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('issqlfile')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('SQLFile').short_name -%> : <%= format_measure('SQLFile') -%> <%= trend_icon(measure('SQLFile')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isftlrealmserver')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('FTLRealmServerConnection').short_name -%> : <%= format_measure('FTLRealmServerConnection') -%> <%= trend_icon(measure('FTLRealmServerConnection')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isftpconnection')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('FTPConnection').short_name -%> : <%= format_measure('FTPConnection') -%> <%= trend_icon(measure('FTPConnection')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isidentityprovider')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('IdentityProvider').short_name -%> : <%= format_measure('IdentityProvider') -%> <%= trend_icon(measure('IdentityProvider')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isjavaglobalinstance')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('JavaGlobalInstance').short_name -%> : <%= format_measure('JavaGlobalInstance') -%> <%= trend_icon(measure('JavaGlobalInstance')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isjndiconfiguration')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('JNDIConfiguration').short_name -%> : <%= format_measure('JNDIConfiguration') -%> <%= trend_icon(measure('JNDIConfiguration')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('iskeystoreprovider')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('KeystoreProvider').short_name -%> : <%= format_measure('KeystoreProvider') -%> <%= trend_icon(measure('KeystoreProvider')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isldapauthentication')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('LDAPAuthentication').short_name -%> : <%= format_measure('LDAPAuthentication') -%> <%= trend_icon(measure('LDAPAuthentication')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isproxyconfiguration')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('ProxyConfiguration').short_name -%> : <%= format_measure('ProxyConfiguration') -%> <%= trend_icon(measure('ProxyConfiguration')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('istrustprovider')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('TrustProvider').short_name -%> : <%= format_measure('TrustProvider') -%> <%= trend_icon(measure('TrustProvider')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isthreadpool')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('ThrealPool').short_name -%> : <%= format_measure('ThrealPool') -%> <%= trend_icon(measure('ThrealPool')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('issubjectprovider')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('SubjectProvider').short_name -%> : <%= format_measure('SubjectProvider') -%> <%= trend_icon(measure('SubjectProvider')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('istcpconnection')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('TCPConnection').short_name -%> : <%= format_measure('TCPConnection') -%> <%= trend_icon(measure('TCPConnection')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isWSSAuthentication')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('WSSAuthentication').short_name -%> : <%= format_measure('WSSAuthentication') -%> <%= trend_icon(measure('WSSAuthentication')) %>
+						</span>
+					</p>
+					<% end %>
+					<% tibresource=measure('isrvtransport')
+						if tibresource
+					%>				
+					<p>
+						<span>
+							<%= metric('RendezvousTransport').short_name -%> : <%= format_measure('RendezvousTransport') -%> <%= trend_icon(measure('RendezvousTransport')) %>
+						</span>
+					</p>
+					<% end %>
+				</div>	
+			</div>
+			</div>
+			
+			<div class="cellContainer">
+			<div class="row">
+			<div class="widget-span">
+				<div class="widget-measure-container">
+					<div class="widget-measure widget-measure-main">
+						<span class="widget-label"><%= metric('globalvariables').short_name -%></span>
+						<span class="nowrap">
+							<span class="link-<%= widget.key %>-issues">
+								<%= format_measure(globalvariables, :url =>	url_for(:controller => 'components', :action => 'index', :id => @project.key)) -%>
+							</span>
+							<%= dashboard_configuration.selected_period? ? format_variation(globalvariables) : trend_icon(globalvariables)	-%>
+						</span>
+					</div>
+				</div>
+			</div>
+			</div>
+			
+			<div class="row">
+			<div class="widget-span">
+				<div class="widget-measure-container">
+					<div class="widget-measure widget-measure-main">
+						<span class="widget-label"><%= metric('jobsharedvariables').short_name -%></span>
+						<span class="nowrap">
+							<span class="link-<%= widget.key %>-issues">
+								<%= format_measure(jobsharedvariables, :url =>	url_for(:controller => 'components', :action => 'index', :id => @project.key)) -%>
+							</span>
+							<%= dashboard_configuration.selected_period? ? format_variation(jobsharedvariables) : trend_icon(jobsharedvariables)	-%>
+						</span>
+					</div>
+				</div>
+			</div>
+			</div>
+			
+			<div class="row">
+			<div class="widget-span">
+				<div class="widget-measure-container">
+					<div class="widget-measure widget-measure-main">
+						<span class="widget-label"><%= metric('modulesharedvariables').short_name -%></span>
+						<span class="nowrap">
+							<span class="link-<%= widget.key %>-issues">
+								<%= format_measure(modulesharedvariables, :url =>	url_for(:controller => 'components', :action => 'index', :id => @project.key)) -%>
+							</span>
+							<%= dashboard_configuration.selected_period? ? format_variation(modulesharedvariables) : trend_icon(modulesharedvariables)	-%>
+						</span>
+					</div>
+				</div>
+			</div>
+			</div>
+			</div>
+			
+			<div>
+			<div class="cellContainer">
+			<div class="widget-span">
+				<div class="widget-measure-container">
+					<div class="widget-measure widget-measure-main" >
+						<span class="widget-label"><%= metric('projectcomplexity').short_name -%></span>
+						<span class="nowrap">
+							<span class="link-<%= widget.key %>-issues">
+								<%= format_measure(projectcomplexity, :url =>	url_for(:controller => 'components', :action => 'index', :id => @project.key)) -%>
+							</span>
+							
+						</span>
+					</div>
+				</div>
+			</div>
+			</div>
+			
+			<div class="cellContainer">
+			<div class="widget-span">
+				<div class="widget-measure-container">
+					<div class="widget-measure widget-measure-main" >
+						<span class="widget-label"><%= metric('codequality').short_name -%></span>
+						<span class="nowrap">
+							<span class="link-<%= widget.key %>-issues">
+								<%= format_measure(codequality, :url =>	url_for(:controller => 'components', :action => 'index', :id => @project.key)) -%>
+							</span>
+							
+						</span>
+					</div>
+				</div>
+			</div>
+			</div>
+			</div>
+		</div>
+		
+		
+		
+	</div>
+
+
+	
+</div>
+
+<% end %>

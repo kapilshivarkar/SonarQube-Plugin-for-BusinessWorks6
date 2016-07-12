@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+extraProperties=sonar.pluginClass\=com.tibco.businessworks6.sonar.plugin.BusinessWorksPlugin\r\nsonar.pluginKey\=tibcobw6\r\nsonar.pluginName\=TIBCO BusinessWorks 6\r\nsonar.buildVersion\=4.5.2\r\nsonar.version\=3.7
+projectKey=com.tibco.sonar.plugins\:sonar-businessworks6-plugin
+serverUrl=http\://localhost\:9000
+version=2
