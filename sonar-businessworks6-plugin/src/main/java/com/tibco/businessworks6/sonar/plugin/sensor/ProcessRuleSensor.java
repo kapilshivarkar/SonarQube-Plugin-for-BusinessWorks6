@@ -222,7 +222,7 @@ public class ProcessRuleSensor extends AbstractRuleSensor {
 			}else{
 				for (String name : referenceServiceName) {
 					Process proc = servicetoprocess.get(name+"-"+referencedServices.get(name).getNamespace()+"-"+referencedServices.get(name).getImplementationProcess());
-					if(proc.getProcessReferenceServices() != null){
+					if(proc != null && proc.getProcessReferenceServices() != null){
 						processname = null;
 						processname = proc.getName();
 						processname = processname.substring(processname.lastIndexOf(".")+1).concat(".bwp");
