@@ -161,7 +161,7 @@ public abstract class ProcessNode {
 							}
 							
 							NodeList expressions = transitions_To.item(j).getChildNodes();
-							if(expressions.item(1) != null){
+							if(expressions.item(1) != null && expressions.item(1).getChildNodes().getLength() != 0){
 								String expression = expressions.item(1).getChildNodes().item(1).getAttributes().getNamedItem("expression").getTextContent();
 								transition.setXpath(expression);
 							}
