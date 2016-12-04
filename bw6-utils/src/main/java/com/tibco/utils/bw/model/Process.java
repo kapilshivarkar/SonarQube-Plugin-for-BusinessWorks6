@@ -584,7 +584,10 @@ public class Process {
 				transition.setFrom(processStarter.getAttributes().getNamedItem("name").getTextContent());
 			}
 			if(processStarter.getChildNodes().item(i).getNodeName().equals("tibex:eventSource")){
-				eventSource.setType(processStarter.getChildNodes().item(i).getChildNodes().item(1).getAttributes().getNamedItem("activityTypeID").getNodeValue());
+				if(processStarter.getChildNodes().item(i).getChildNodes().item(1).getAttributes().getNamedItem("activityTypeID") == null)
+					eventSource.setType("bw.Start");
+				else
+					eventSource.setType(processStarter.getChildNodes().item(i).getChildNodes().item(1).getAttributes().getNamedItem("activityTypeID").getNodeValue());
 				eventSources.add(eventSource);
 			}
 		}
